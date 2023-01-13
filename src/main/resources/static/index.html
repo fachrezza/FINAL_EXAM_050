@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    </head>
+    <body>
+         <script>
+            
+            const url = "http://localhost:8080/POST";
+            
+            function post() {
+                let id = document.getElementById("id").value;
+                let no_surat = document.getElementById("no_surat").value;
+                let judul = document.getElementById("judul").value;
+                let tembusan = document.getElementById("tembusan").value;
+                let file = document.getElementById("file").value;
+                let ts = document.getElementById("ts").value;
+                let dataText = {"id":id,"no_surat":no_surat,"judul":judul,"tembusan":tembusan,"file":file,"ts":ts}
+                let dataJson = JSON.stringify(dataText);
+                
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                })
+            }
+            
+            function put() {
+                
+                const urlp = "http://localhost:8080/PUT";
+                
+                let id = document.getElementById("id").value;
+                let no_surat = document.getElementById("no_surat").value;
+                let judul = document.getElementById("judul").value;
+                let tembusan = document.getElementById("tembusan").value;
+                let file = document.getElementById("file").value;
+                let ts = document.getElementById("ts").value;
+                let dataText = {"id":id,"no_surat":no_surat,"judul":judul,"tembusan":tembusan,"file":file,"ts":ts}
+                let dataJson = JSON.stringify(dataText);
+                
+                $.ajax({
+                    url: urlp,
+                    method: 'PUT',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                })
+            }
+            
+            function get(){
+                const urlg = "http://localhost:8080/GET";
+                $.ajax({
+                    url: urlg,
+                    method: 'GET',
+                    dataType: 'text',
+                    success: function (result) {
+                        document.getElementById("viewer").innerHTML = result;
+                    }
+                })
+            }
+            
+            function del() {
+                
+                let delID = document.getElementById("id").value;
+                let data = {"id":delID};
+                let dataJSON = JSON.stringify(data);
+                const urld = "http://localhost:8080/DEL";
+                
+                $.ajax({
+                    url: urld,
+                    method: 'DELETE',
+                    data: dataJSON,
+                    dataType: 'text',
+                    success: function (result) {
+                        document.getElementById("viewer").innerHTML = result;
+                    }
+                })
+            }
+            
+            
+        </script>
+        
+        ID Surat :
+        <input type="text" id="id" name="id"/><br>
+        Nomor Surat :
+        <input type="text" id="no_surat" name="no_surat"/><br>
+        Judul Surat :
+        <input type="text" id="judul" name="judul"/><br>
+        Tembusan :
+        <input type="text" id="tembusan" name="tembusan"/><br>
+        File Surat :
+        <input type="file" id="file" name="file"/><br>
+        
+        <hr/>
+        
+        <button onclick="get()">Get Data</button> <br/>
+        <button onclick="post()">Send Data</button> <br/>
+        <button onclick="put()">Edit Data</button> <br/>
+        <button onclick="del()">Delete Data</button>
+        
+        <hr/>
+        
+        <div id="viewer"></div>
+        
+<!--        <table border="1">
+            <tr>
+            <th>ID</th>
+            <th>No_Surat</th>
+            <th>Judul</th>
+            <th>Tembusan</th>
+            <th>File</th>
+            <th>T.S</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>-->
+    </body>
+</html>
